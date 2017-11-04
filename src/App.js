@@ -53,7 +53,7 @@ export class App extends Component {
                 var kk = Object.keys(data);
                 //console.log(" KEYyyyyyyyy", kk[0]);
                 return(
-                  <div>
+                  <div  >
                     <ul key={index} className = "list">
                       <li key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </li>
                     </ul>
