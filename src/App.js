@@ -20,10 +20,8 @@ export class App extends Component {
 
     this.props.dispatch(deleteTaskList(index));
 
-    if (ReactDOM.findDOMNode(this.refs.title).value === title) {
-      ReactDOM.findDOMNode(this.refs.title).value = "";
-      ReactDOM.findDOMNode(this.refs.text).value = "";
-    }
+    ReactDOM.findDOMNode(this.refs.title).value = "";
+    ReactDOM.findDOMNode(this.refs.text).value = "";
 
   }
 
