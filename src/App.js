@@ -69,7 +69,7 @@ export class App extends Component {
                 <div key = {index}>
                   <ListGroup className = "list">
                     <ListGroupItem className = "listData" bsStyle="success" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </ListGroupItem>
-                    <Button bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index, data[kk[0]], kk[0])}>X</Button>
+                    <Button className = "listData" bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index, data[kk[0]], kk[0])}>X</Button>
                   </ListGroup>
               </div>
                 );
