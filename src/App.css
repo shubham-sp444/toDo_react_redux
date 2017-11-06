@@ -6,6 +6,11 @@
   height: 100%;
 }
 
+.box {
+  align-content: center;
+  margin-top: 20px;
+}
+
 .left {
   flex: 1;
   height: 100%;
@@ -13,7 +18,6 @@
 
 .list {
   margin-bottom: 2px;
-  background-color: #777799;
 }
 
 .right {
@@ -23,13 +27,19 @@
 }
 
 .textbox {
-  height: 100px;
+  height: 200px;
   margin-right: 25px;
+  width: 100%;
+}
+
+.textboxtitle {
+  height: 31px;
+  width: 100%;
 }
 
 .button{
   position:absolute;
   bottom:10;
-  left: 50%;
+  left: 60%;
   align-content: center;
 }

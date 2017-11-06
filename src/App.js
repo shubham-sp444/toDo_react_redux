@@ -3,6 +3,9 @@ import './App.css';
 import {connect} from 'react-redux'
 import {addToDo, deleteTaskList} from './action'
 import ReactDOM from 'react-dom';
+import { Button, Panel, form, FormGroup, ControlLabel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 
 export class App extends Component {
   constructor(props) {
@@ -53,29 +56,33 @@ export class App extends Component {
                 var kk = Object.keys(data);
                 //console.log(" KEYyyyyyyyy", kk[0]);
                 return(
-                  <div  >
-                    <ul key={index} className = "list">
-                      <li key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </li>
-                    </ul>
-                    <text onClick = {this.deleteTask.bind(this, index)}>X</text>
-                  </div>
+                <div>
+                  <ListGroup className = "list">
+                    <ListGroupItem bsStyle="info" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </ListGroupItem>
+                    <Button bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index)}>X</Button>
+                  </ListGroup>
+              </div>
                 );
               })}
             </div>
             <div className = 'right'>
               <div>
-                <textarea className = "textbox"
-                  type="search"
-                  ref = "title"
-                  onChange={(event) => {this.currentTitle = event.target.value}}
-                />
-                <textarea className = "textbox"
-                  type="search"
-                  ref = "text"
-                  onChange={(event) => {this.currentText = event.target.value;}}
-                />
+                <Panel header="title" bsStyle="success" className = "box">
+                  <textarea className = "textboxtitle"
+                    type="search"
+                    ref = "title"
+                    onChange={(event) => {this.currentTitle = event.target.value}}
+                  />
+                </Panel>
+                <Panel header="tasks" bsStyle="success" className = "box">
+                  <textarea className = "textbox"
+                    type="search"
+                    ref = "text"
+                    onChange={(event) => {this.currentText = event.target.value;}}
+                  />
+              </Panel>
               </div>
-                <button className = "button" onClick = {this.addTask.bind(this)}>Add Task</button>
+                <Button bsStyle="primary" className ="button" onClick = {this.addTask.bind(this)}>Add Task</Button>
             </div>
           </div>
         );
