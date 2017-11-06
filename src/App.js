@@ -3,7 +3,7 @@ import './App.css';
 import {connect} from 'react-redux'
 import {addToDo, deleteTaskList, updateButtonName, updateTaskList} from './action'
 import ReactDOM from 'react-dom';
-import { Button, Panel, form, FormGroup, ControlLabel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
@@ -16,11 +16,11 @@ export class App extends Component {
   }
 
   deleteTask(index, txt, title) {
-    console.log("*********  TASK DELETION ********");
+    //console.log("*********  TASK DELETION ********");
 
     this.props.dispatch(deleteTaskList(index));
 
-    if (ReactDOM.findDOMNode(this.refs.title).value = title) {
+    if (ReactDOM.findDOMNode(this.refs.title).value === title) {
       ReactDOM.findDOMNode(this.refs.title).value = "";
       ReactDOM.findDOMNode(this.refs.text).value = "";
     }
@@ -30,7 +30,7 @@ export class App extends Component {
 
 // changes the name of button name to update task when task Clicked
   displayTask(txt, title, index) {
-    console.log("********* displayTask ********");
+    //console.log("********* displayTask ********");
     //this.props.dispatch(displayTaskList(false, txt, title));
     //this.cK = title;
     ReactDOM.findDOMNode(this.refs.title).value = title;
@@ -57,12 +57,12 @@ export class App extends Component {
 
   // if btn name is update task then calls 'update task' to update otherwise 'addToDo' to add tasks
   addTask(event) {
-    console.log("button Clicked");
+    /*console.log("button Clicked");
     console.log("***************",this.currentTitle.length,);
     console.log(this.currentText.length);
     console.log("button Clicked AFTER");
-    //
-    if (this.props.ll.btn == "Create New Task") {
+    */
+    if (this.props.ll.btn === "Create New Task") {
       if (this.currentTitle.length > 0 && this.currentText.length > 0) {
         this.props.dispatch(addToDo(this.currentTitle, this.currentText));
       }
@@ -84,10 +84,10 @@ export class App extends Component {
   //console.log(" DISPLAY SCREEN", this.props.ll.display);
   //if (this.props.ll.display) {
     render() {
-      console.log(" RENDER START");
+      /*console.log(" RENDER START");
       console.log(this.props.ll.tasks);
       console.log(" DISPLAY SCREEN", this.props.ll.display);
-      console.log("RENDER END");
+      console.log("RENDER END"); */
         return (
           <div className="container">
             <div className = 'left'>

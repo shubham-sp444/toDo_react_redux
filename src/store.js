@@ -1,6 +1,6 @@
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import React,{Component} from 'react'
+import React from 'react'
 import App from './App'
 import red from './reducer'
 

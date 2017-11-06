@@ -5,6 +5,6 @@ import registerServiceWorker from './registerServiceWorker';
 import Main from './store'
 
 
-console.log("THIS IS THE ROOT ELEMENT");
+//console.log("THIS IS THE ROOT ELEMENT");
 ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();
