@@ -12,3 +12,18 @@ export function deleteTaskList(index) {
     index: index
   }
 }
+
+export function updateButtonName() {
+  return {
+    type: "UPDATE_BUTTON_NAME"
+  }
+}
+
+export function updateTaskList(title, text, index) {
+  return {
+    type: "UPDATE_TASK",
+    title: title,
+    text: text,
+    index: index
+  }
+}

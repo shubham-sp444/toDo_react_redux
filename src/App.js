@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
 import {connect} from 'react-redux'
-import {addToDo, deleteTaskList} from './action'
+import {addToDo, deleteTaskList, updateButtonName, updateTaskList} from './action'
 import ReactDOM from 'react-dom';
 import { Button, Panel, form, FormGroup, ControlLabel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,6 +12,7 @@ export class App extends Component {
     super(props);
     this.currentText = '';
     this.currentTitle = '';
+    this.updateIndex = 0;
   }
 
   deleteTask(index, txt, title) {
@@ -23,26 +24,54 @@ export class App extends Component {
       ReactDOM.findDOMNode(this.refs.title).value = "";
       ReactDOM.findDOMNode(this.refs.text).value = "";
     }
+
   }
 
-  displayTask(txt, title) {
+
+// changes the name of button name to update task when task Clicked
+  displayTask(txt, title, index) {
     console.log("********* displayTask ********");
     //this.props.dispatch(displayTaskList(false, txt, title));
     //this.cK = title;
     ReactDOM.findDOMNode(this.refs.title).value = title;
     ReactDOM.findDOMNode(this.refs.text).value = txt;
+    this.currentText = txt;
+    this.currentTitle = title;
+    this.updateIndex = index;
+
+    //console.log("********* displayTask END ********");
+    //this.taskType = "Update Task";
+    this.props.dispatch(updateButtonName());
+
   }
 
+  // for updating the task
+  updateTask() {
+    if (this.currentTitle.length > 0 && this.currentText.length > 0) {
+      this.props.dispatch(updateTaskList(this.currentTitle, this.currentText, this.updateIndex));
+    }
+    else {
+      alert("please fille both title and task fields");
+    }
+  }
+
+  // if btn name is update task then calls 'update task' to update otherwise 'addToDo' to add tasks
   addTask(event) {
     console.log("button Clicked");
     console.log("***************",this.currentTitle.length,);
     console.log(this.currentText.length);
     console.log("button Clicked AFTER");
-    if (this.currentTitle.length > 0 && this.currentText.length > 0) {
-      this.props.dispatch(addToDo(this.currentTitle, this.currentText));
+    //
+    if (this.props.ll.btn == "Create New Task") {
+      if (this.currentTitle.length > 0 && this.currentText.length > 0) {
+        this.props.dispatch(addToDo(this.currentTitle, this.currentText));
+      }
+      else {
+        alert("please fille both title and task fields");
+      }
     }
     else {
-      alert("please fille both title and task fields");
+      this.updateTask();
     }
 
     // for emptying the value in input text
@@ -68,8 +97,8 @@ export class App extends Component {
                 return(
                 <div key = {index}>
                   <ListGroup className = "list">
-                    <ListGroupItem className = "listData" bsStyle="success" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </ListGroupItem>
-                    <Button className = "listData" bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index, data[kk[0]], kk[0])}>X</Button>
+                    <ListGroupItem className = "listData" bsStyle="success" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0], index)}> {kk} </ListGroupItem>
+                    <Button className = "cancel" bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index, data[kk[0]], kk[0])}>X</Button>
                   </ListGroup>
               </div>
                 );
@@ -92,7 +121,7 @@ export class App extends Component {
                   />
               </Panel>
               </div>
-                <Button bsStyle="primary" className ="button" onClick = {this.addTask.bind(this)}>Add Task</Button>
+                <Button bsStyle="primary" className ="button" onClick = {this.addTask.bind(this)}>{this.props.ll.btn}</Button>
             </div>
           </div>
         );

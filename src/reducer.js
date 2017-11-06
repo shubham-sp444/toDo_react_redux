@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-const updateList = (state = {tasks:[],title:"", text:""}, action) => {
+const updateList = (state = {tasks:[],title:"", text:"", btn:"Create New Task"}, action) => {
   switch (action.type) {
     case "UPDATE_LIST":
       console.log(" ********** UPDATE_LIST ******")
@@ -25,6 +25,28 @@ const updateList = (state = {tasks:[],title:"", text:""}, action) => {
 
       state = {
         ...state,
+        tasks:xx,
+        btn:"Create New Task"
+      }
+      break;
+    case "UPDATE_BUTTON_NAME":
+      state = {
+        ...state,
+        btn:"Update Task"
+      }
+      break;
+    case "UPDATE_TASK":
+      var xx = state.tasks;
+      xx.splice(action.index, 1);
+
+      var obj = {};
+      obj[action.title] = action.text;
+      //console.log(obj);
+      xx.push(obj);
+
+      state = {
+        ...state,
+        btn:"Create New Task",
         tasks:xx
       }
       break;

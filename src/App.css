@@ -16,6 +16,7 @@
   height: 100%;
   margin-right: 10px;
   background-color: #FFFAFA;
+  display: inline;
 }
 
 .list {
@@ -25,6 +26,12 @@
 
 .listData {
   font-weight: bold;
+  display: inline;
+}
+
+.cancel {
+  font-weight: bold;
+  display: inline;
 }
 
 .right {
