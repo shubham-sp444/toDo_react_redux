@@ -17,13 +17,17 @@
 }
 
 .list {
+  margin-top: 20px;
   margin-bottom: 2px;
+}
+
+.listData {
+  font-weight: bold;
 }
 
 .right {
   flex: 2;
   height: 100%;
-  background-color: #F5FCFF;
 }
 
 .textbox {
@@ -35,6 +39,8 @@
 .textboxtitle {
   height: 31px;
   width: 100%;
+  text-align: center;
+  font-weight: bold;
 }
 
 .button{

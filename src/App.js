@@ -14,10 +14,15 @@ export class App extends Component {
     this.currentTitle = '';
   }
 
-  deleteTask(index) {
+  deleteTask(index, txt, title) {
     console.log("*********  TASK DELETION ********");
 
     this.props.dispatch(deleteTaskList(index));
+
+    if (ReactDOM.findDOMNode(this.refs.title).value = title) {
+      ReactDOM.findDOMNode(this.refs.title).value = "";
+      ReactDOM.findDOMNode(this.refs.text).value = "";
+    }
   }
 
   displayTask(txt, title) {
@@ -30,16 +35,21 @@ export class App extends Component {
 
   addTask(event) {
     console.log("button Clicked");
-    //console.log("***************",this.currentTitle,);
-    console.log(this.currentText);
+    console.log("***************",this.currentTitle.length,);
+    console.log(this.currentText.length);
     console.log("button Clicked AFTER");
-    this.props.dispatch(addToDo(this.currentTitle, this.currentText));
+    if (this.currentTitle.length > 0 && this.currentText.length > 0) {
+      this.props.dispatch(addToDo(this.currentTitle, this.currentText));
+    }
+    else {
+      alert("please fille both title and task fields");
+    }
 
     // for emptying the value in input text
     ReactDOM.findDOMNode(this.refs.title).value = "";
     ReactDOM.findDOMNode(this.refs.text).value = "";
-    //this.currentText = this.props.ll.title;
-    //this.currentTitle = this.props.ll.text;
+    this.currentText = "";
+    this.currentTitle = "";
   }
 
   //console.log(" DISPLAY SCREEN", this.props.ll.display);
@@ -56,10 +66,10 @@ export class App extends Component {
                 var kk = Object.keys(data);
                 //console.log(" KEYyyyyyyyy", kk[0]);
                 return(
-                <div>
+                <div key = {index}>
                   <ListGroup className = "list">
-                    <ListGroupItem bsStyle="info" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </ListGroupItem>
-                    <Button bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index)}>X</Button>
+                    <ListGroupItem className = "listData" bsStyle="success" key={index} onClick = {this.displayTask.bind(this, data[kk[0]], kk[0])}> {kk} </ListGroupItem>
+                    <Button bsStyle="danger" bsSize="small" onClick = {this.deleteTask.bind(this, index, data[kk[0]], kk[0])}>X</Button>
                   </ListGroup>
               </div>
                 );
@@ -67,14 +77,14 @@ export class App extends Component {
             </div>
             <div className = 'right'>
               <div>
-                <Panel header="title" bsStyle="success" className = "box">
+                <Panel header="title" bsStyle="warning" className = "box">
                   <textarea className = "textboxtitle"
                     type="search"
                     ref = "title"
                     onChange={(event) => {this.currentTitle = event.target.value}}
                   />
                 </Panel>
-                <Panel header="tasks" bsStyle="success" className = "box">
+                <Panel header="tasks" bsStyle="info" className = "box">
                   <textarea className = "textbox"
                     type="search"
                     ref = "text"
