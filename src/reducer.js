@@ -1,15 +1,13 @@
 import {combineReducers} from 'redux'
+import Cookies from 'universal-cookie';
 
-const updateList = (state = {tasks:[],title:"", text:"", btn:"Create New Task"}, action) => {
+var cookie = new Cookies();
+
+const updateList = (state = {tasks:cookie.get("ToDO"),title:"", text:"", btn:"Create New Task"}, action) => {
   switch (action.type) {
     case "UPDATE_LIST":
-      /*console.log(" ********** UPDATE_LIST ******")
-      console.log(action.title);
-      console.log(action.text);
-      */
       var obj = {};
       obj[action.title] = action.text;
-      //console.log(obj);
       var arr = [];
       arr.push(obj);
 
@@ -42,7 +40,6 @@ const updateList = (state = {tasks:[],title:"", text:"", btn:"Create New Task"},
 
       var obj = {};
       obj[action.title] = action.text;
-      //console.log(obj);
       xx.push(obj);
 
       state = {
@@ -51,9 +48,26 @@ const updateList = (state = {tasks:[],title:"", text:"", btn:"Create New Task"},
         tasks:xx
       }
       break;
+    case "UPDATE_COOKIE_LIST":
+      let myCookie = cookie.get('ToDO');
+
+      if (myCookie === null) {
+        let arr = state.tasks;
+        cookie.set('ToDO', arr);
+      }
+      else {
+        cookie.remove('ToDO');
+        let arr = state.tasks;
+        cookie.set('ToDO', arr);
+      }
+      state = {
+        ...state
+      }
+      break;
     default:
       break;
   }
+  //console.log("REDUCER RETURNED");
   return state;
 }
 

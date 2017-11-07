@@ -27,3 +27,9 @@ export function updateTaskList(title, text, index) {
     index: index
   }
 }
+
+export function updateCookieList(){
+  return {
+    type: "UPDATE_COOKIE_LIST"
+  }
+}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './App.css';
 import {connect} from 'react-redux'
-import {addToDo, deleteTaskList, updateButtonName, updateTaskList} from './action'
+import {addToDo, deleteTaskList, updateButtonName, updateTaskList, updateCookieList} from './action'
 import ReactDOM from 'react-dom';
 import { Button, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+//import Cookies from 'universal-cookie';
 
 export class App extends Component {
   constructor(props) {
@@ -15,10 +16,13 @@ export class App extends Component {
     this.updateIndex = 0;
   }
 
+  // for deletion of tasks in the list and updating the cookies
   deleteTask(index, txt, title) {
     //console.log("*********  TASK DELETION ********");
 
     this.props.dispatch(deleteTaskList(index));
+
+    this.props.dispatch(updateCookieList());
 
     ReactDOM.findDOMNode(this.refs.title).value = "";
     ReactDOM.findDOMNode(this.refs.text).value = "";
@@ -28,45 +32,41 @@ export class App extends Component {
 
 // changes the name of button name to update task when task Clicked
   displayTask(txt, title, index) {
-    //console.log("********* displayTask ********");
-    //this.props.dispatch(displayTaskList(false, txt, title));
-    //this.cK = title;
     ReactDOM.findDOMNode(this.refs.title).value = title;
     ReactDOM.findDOMNode(this.refs.text).value = txt;
     this.currentText = txt;
     this.currentTitle = title;
     this.updateIndex = index;
 
-    //console.log("********* displayTask END ********");
     //this.taskType = "Update Task";
     this.props.dispatch(updateButtonName());
 
   }
 
-  // for updating the task
+  // for updating the task and cookie list
   updateTask() {
     if (this.currentTitle.length > 0 && this.currentText.length > 0) {
-      this.props.dispatch(updateTaskList(this.currentTitle, this.currentText, this.updateIndex));
+        this.props.dispatch(updateTaskList(this.currentTitle, this.currentText, this.updateIndex));
+
+        this.props.dispatch(updateCookieList());
     }
     else {
-      alert("please fille both title and task fields");
+        alert("please fill both title and task fields");
     }
   }
 
   // if btn name is update task then calls 'update task' to update otherwise 'addToDo' to add tasks
   addTask(event) {
-    /*console.log("button Clicked");
-    console.log("***************",this.currentTitle.length,);
-    console.log(this.currentText.length);
-    console.log("button Clicked AFTER");
-    */
     if (this.props.ll.btn === "Create New Task") {
-      if (this.currentTitle.length > 0 && this.currentText.length > 0) {
-        this.props.dispatch(addToDo(this.currentTitle, this.currentText));
-      }
-      else {
-        alert("please fille both title and task fields");
-      }
+        if (this.currentTitle.length > 0 && this.currentText.length > 0) {
+          this.props.dispatch(addToDo(this.currentTitle, this.currentText));
+
+          //to update cookies
+          this.props.dispatch(updateCookieList());
+        }
+        else {
+          alert("please fille both title and task fields");
+        }
     }
     else {
       this.updateTask();
@@ -79,13 +79,8 @@ export class App extends Component {
     this.currentTitle = "";
   }
 
-  //console.log(" DISPLAY SCREEN", this.props.ll.display);
-  //if (this.props.ll.display) {
     render() {
-      /*console.log(" RENDER START");
-      console.log(this.props.ll.tasks);
-      console.log(" DISPLAY SCREEN", this.props.ll.display);
-      console.log("RENDER END"); */
+      console.log();
         return (
           <div className="container">
             <div className = 'left'>
@@ -125,11 +120,12 @@ export class App extends Component {
         );
   }
 }
-//}
 
-const mapStatetoProps = (state) => ({
+//console.log(state);
+//console.log(store.getState());
+const mapStatetoProps = (state) => {return {
     ll: state.list
-  });
+  }};
 
 const mapDispatchtoProps = (dispatch) => ({
     dispatch: dispatch
