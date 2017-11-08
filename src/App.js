@@ -80,10 +80,11 @@ export class App extends Component {
   }
 
     render() {
-      console.log();
+      console.log("DSDDDSDS");
         return (
           <div className="container">
             <div className = 'left'>
+              if(this.props.ll.tasks.length > 0) {
               {this.props.ll.tasks.map((data, index) => {
                 var kk = Object.keys(data);
                 //console.log(" KEYyyyyyyyy", kk[0]);
@@ -96,17 +97,18 @@ export class App extends Component {
               </div>
                 );
               })}
+            }
             </div>
             <div className = 'right'>
               <div>
-                <Panel header="title" bsStyle="warning" className = "box">
+                <Panel header="title*" bsStyle="warning" className = "box">
                   <textarea className = "textboxtitle"
                     type="search"
                     ref = "title"
                     onChange={(event) => {this.currentTitle = event.target.value}}
                   />
                 </Panel>
-                <Panel header="tasks" bsStyle="info" className = "box">
+                <Panel header="tasks*" bsStyle="info" className = "box">
                   <textarea className = "textbox"
                     type="search"
                     ref = "text"
